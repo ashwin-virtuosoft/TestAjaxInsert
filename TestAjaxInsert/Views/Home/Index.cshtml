@@ -1,0 +1,72 @@
+﻿@model TestAjax
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+    <h1 class="display-4">Welcome</h1>
+
+    <div class="container mt-5">
+        <form id="myForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" class="form-control" id="phone" name="phone">
+            </div>
+        <br />
+            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+       
+        </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $("#submitButton").click(function (e) {
+            e.preventDefault(); 
+
+            var name1 = $("#name").val();
+            var email1 = $("#email").val();
+            var password1 = $("#password").val();
+            var phoneNumber1 = $("#phone").val();
+
+
+
+            var jsonData = {
+                "name": name1,
+                "email": email1,
+                "password": password1,
+                "phoneNumber": phoneNumber1
+            };
+            
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Add_Data", "Home")',
+                contentType:'application/json',
+                data: JSON.stringify(jsonData),
+                success: function (data) {
+                    console.log(data);                                                                                                                      
+                    alert(data);
+                },
+                error: function (xhr,status,err) {
+                    console.log("Error");
+                }
+            });
+        });
+    });
+</script>
+
+
+   
+
